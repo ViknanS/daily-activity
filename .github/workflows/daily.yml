@@ -1,0 +1,19 @@
+name: Daily Green Square
+on:
+  schedule:
+    - cron: "30 5 * * *"   # 05:30 UTC = 11:00 AM IST
+  workflow_dispatch:
+jobs:
+  keep-green:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          git config user.name "ViknanS"
+          git config user.email "153588084+ViknanS@users.noreply.github.com"
+          echo "$(date -u +'%Y-%m-%d %H:%M:%S') UTC" >> activity.log
+          git add activity.log
+          git commit -m "chore: daily update $(date -u +'%Y-%m-%d')"
+          git push

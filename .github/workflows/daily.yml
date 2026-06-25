@@ -10,10 +10,13 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - run: |
           git config user.name "ViknanS"
           git config user.email "153588084+ViknanS@users.noreply.github.com"
           echo "$(date -u +'%Y-%m-%d %H:%M:%S') UTC" >> activity.log
           git add activity.log
           git commit -m "chore: daily update $(date -u +'%Y-%m-%d')"
+          git pull --rebase
           git push
